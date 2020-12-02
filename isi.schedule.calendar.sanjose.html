@@ -1,0 +1,57 @@
+<html>
+<head>
+<title>ISI Schedule Calendar San Jose Earthquakes Team Photography</title>
+<META HTTP-EQUIV="Expires" CONTENT="Tue, 01 Jan 1980 1:00:00 GMT">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<script>
+var	cookieID = 'ScheduleCalendar_SanJoseEarthquakes';
+var isSkip = false;
+var data = '';
+data = document.cookie;
+if (data != '') {
+	data = data.split('=');
+	if (data[0] == cookieID) {
+		isSkip = true;
+	}
+}
+function executeLink() {
+	expireDate = new Date;
+	expireDate.setYear(expireDate.getFullYear()+1);
+	document.cookie = cookieID+"='calendar';expires="+expireDate.toGMTString();
+//	Load the public version of a calendar
+	tempObject = document.getElementById('formcalendar');
+	tempObject.submit();
+
+}
+
+</script>
+</head>
+<body style="margin-top: 20px;">
+<form id="formcalendar" action="isi.schedule.calendar.php" method="post">
+<input type='hidden' name='public' id='public' value='yes'>
+<input type='hidden' name='calendaradjust' id='calendaradjust' value='0'>
+<input type='hidden' name='organization' id='organization' value="San Jose Earthquakes Team Photography">
+</form>
+<table>
+<tr><td width=5%>&nbsp;</td><td width=60%>&nbsp;</td><td width=5%>&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td>ISI Schedule Calendar San Jose</td><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td>Recommendation: Bookmark this page and then click the 'Redirect' button. Clicking the button will create a cookie that contains no personal information, and redirect to the calendar of assignments. When the cookie is present, the redirect is automatic and this page skips.</td><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td align=left><input type=button value='Redirect' onclick='javascript:executeLink();'></td><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table>
+
+</body>
+
+<script>
+if (isSkip == true) {
+//	Load the public version of a calendar
+	tempObject = document.getElementById('formcalendar');
+	tempObject.submit();
+}
+</script>
+
+</html>

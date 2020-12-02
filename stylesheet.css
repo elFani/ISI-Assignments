@@ -1,0 +1,13 @@
+iframe {
+   position: relative;
+   left: 50%;
+   transform: translate(-62.5%, 0%);
+   display: block;
+}
+
+img {
+   position: relative;
+   left: 50%;
+   transform: translate(-85%, 0%);
+   display: block;
+}

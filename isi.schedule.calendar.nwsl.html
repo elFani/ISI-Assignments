@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>ISI Schedule Calendar NWSL</title>
+<META HTTP-EQUIV="Expires" CONTENT="Tue, 01 Jan 1980 1:00:00 GMT">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+</head>
+<body style="margin-top: 20px;">
+<form id="formcalendar" action="isi.schedule.calendar.php" method="post">
+<input type='hidden' name='public' id='public' value='yes'>
+<input type='hidden' name='calendaradjust' id='calendaradjust' value='0'>
+<input type='hidden' name='organization' id='organization' value="NWSL">
+</form>
+
+
+</body>
+
+<script>
+//	Load the public version of a calendar
+tempObject = document.getElementById('formcalendar');
+tempObject.submit();
+</script>
+
+</html>
