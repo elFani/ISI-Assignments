@@ -11,7 +11,7 @@ if ($typeSCRIPT == 'string') {
 }
 #	Please follow link to ISI Photo Uploader
 if ($isHTTP) {
-	print "<br><br><center><font size=+1>Please follow link to ISI Photos Assignment Request.</font></center><br>";
+	print "<br><br><center><h3>Hello. Please follow link to ISI Photos Assignment Request.</h3></center><br>";
 	print "<center><font size=+1><a href='https://assignments.isiphotos.com'>https://assignments.isiphotos.com</a></font></center><br>";
 	print "<center><font size=+1>Link as text: <input type='text' value='https://assignments.isiphotos.com' size=50></font></center><br>";
 	exit;
@@ -26,10 +26,10 @@ include ("includes/isi.schedule.tools.php");
 #	Create/send assignment request to ISI for photographer(s).
 #	For certain leagues, teams are known, and select boxes can be pre-filled.
 #	For "Other", user fills in the information.
-#		
-#		
+#
+#
 #	To Do
-#		
+#
 #	--------------------------------------------
 #	Issue:
 #	--------------------------------------------
@@ -131,7 +131,7 @@ if (isConsoleTrace) { console.log("readytoassign"); }
 var passedValidation;
 //	Display selected date.
 	indicateDate();
-//	Validate ...	
+//	Validate ...
 	passedValidation = validateInput();
 	if (passedValidation == false) {
 		return false;
@@ -141,7 +141,7 @@ var passedValidation;
 	organizationName = currentLeague;
 if (isConsoleTrace) { console.log("readytoassign Collection ID("+collectionID+") Name("+organizationName+") Gallery("+tempObject.value+")"); }
 	insertAssignment();
-return true;	
+return true;
 }
 function validateInput() {
 if (isConsoleTrace) { console.log("validateInput"); }
@@ -172,8 +172,8 @@ var test, tempObject;
 		tempObject.focus();
 		return false;
 	}
-	
-	
+
+
 //	Validate collection selected
 	tempObject = document.getElementById('isi_selected_league');
 	test = tempObject.value;
@@ -199,7 +199,7 @@ var test, tempObject;
 //		tempObject.focus();
 //		alert ('Event end time must be greater than start time.');
 //		return false;
-//	}	
+//	}
 
 //	Validate location
 	tempObject = document.getElementById('location_data');
@@ -236,14 +236,14 @@ var test, tempObject;
 //		tempObject.focus();
 //		return false;
 //	}
-	
+
 //	Validate event type
 	if (activeEventType == '' || activeEventType == 'none') {
 		alert ('Event type required.');
 		tempObject = document.getElementById('isi_eventtype');
 		tempObject.focus();
 		return false;
-	}	
+	}
 
 //	Game or Non-game / Other
 	game = true;
@@ -258,7 +258,7 @@ var test, tempObject;
 //	Clear selected home team, which feeds into final keyword/gallery name.
 		tempObject = document.getElementById('isi_selected_hometeam');
 		tempObject.value = '';
-//	Clear selected vistor team		
+//	Clear selected vistor team
 		tempObject = document.getElementById('isi_selected_visitorteam');
 		tempObject.value = '';
 		tempObject = document.getElementById('isi_selected_description');
@@ -294,7 +294,7 @@ var test, tempObject;
 			tempObject.focus();
 			return false;
 		}
-//	Check for selected activity		
+//	Check for selected activity
 		tempObject = document.getElementById('isi_selected_visitorteam');
 		test = tempObject.value;
 		if (test == '') {
@@ -316,7 +316,7 @@ var test, tempObject;
 			tempObject.value = '';
 			tempObject.value = test;
 		}
-//	Activity updated ??? after initial validation	
+//	Activity updated ??? after initial validation
 		tempObject = document.getElementById('isi_selected_visitorteam_new');
 		testA = tempObject.value;
 		tempObject = document.getElementById('isi_selected_visitorteam');
@@ -370,7 +370,7 @@ var test, tempObject;
 			tempObject.value = '';
 			tempObject.value = test;
 		}
-//	Home updated ??? after initial validation	
+//	Home updated ??? after initial validation
 		tempObject = document.getElementById('isi_selected_hometeam_new');
 		testA = tempObject.value;
 		tempObject = document.getElementById('isi_selected_hometeam');
@@ -378,7 +378,7 @@ var test, tempObject;
 		if (testA != '' && testA != test) {
 			tempObject.value = testA;
 		}
-//	Visitor updated ??? after initial validation	
+//	Visitor updated ??? after initial validation
 		tempObject = document.getElementById('isi_selected_visitorteam_new');
 		testA = tempObject.value;
 		tempObject = document.getElementById('isi_selected_visitorteam');
@@ -386,23 +386,23 @@ var test, tempObject;
 		if (testA != '' && testA != test) {
 			tempObject.value = testA;
 		}
-	}	
+	}
 	tempKeyword = '';
 	tempObject = document.getElementById('isi_selected_hometeam');
 	tempKeyword = tempKeyword + tempObject.value;
 	tempObject = document.getElementById('isi_selected_visitorteam');
 	tempvs = ' ';
 	if (activeEventType == 'eventgame') { tempvs = ' vs '; }
-	test = tempObject.value;	
+	test = tempObject.value;
 	if (test != '') {
 		tempKeyword = tempKeyword + tempvs + tempObject.value;
 	}
-	
+
 //	Date is part of the gallery name
 	tempObject = document.getElementById('isi_selected_date');
 	temp = tempObject.value;
 	tempKeyword = tempKeyword + ', ' + temp;
-		
+
 //	Keyword is the gallery name.
 	tempObject = document.getElementById('isi_selected_keyword');
 	tempObject.value = tempKeyword;
@@ -508,8 +508,8 @@ function changeStart(inputObject) {
 		tempObject = document.getElementById('isi_timeend');
 		tempObject.selectedIndex = 15;
 		return;
-	}	
-//	
+	}
+//
 //	For time increments: size = 6. Adjust, :00, :15, :30, :45, Reset.
 	if (inputObject.size == 6) {
 		inputObject.size = 1;
@@ -749,7 +749,7 @@ var test, tempMax, tempObject, tempText, tempValue, currentIndex, currentData;
 	tempObject = document.getElementById('isi_selected_hometeam_new');
 	tempObject.value = '';
 //	For Cal Athletics and Stanford Athletics there are sub-collections, by team game.
-//	Nongame activities for Stanford and Cal	
+//	Nongame activities for Stanford and Cal
 //	Get PhotoShelter collection ID. Used for creating/accessing gallery.
 //	Indicate gallery/collection permissions
 	if ((activeEventType == 'eventgame' || activeEventType == 'eventnongame') && currentLeague == 'Cal Athletics') {
@@ -765,7 +765,7 @@ var test, tempMax, tempObject, tempText, tempValue, currentIndex, currentData;
 //	if (activeEventType == 'eventexists' && (currentLeague == 'Cal Athletics' || currentLeague == 'Stanford Athletics')) {
 //		if (isConsoleTrace) { console.log("changeHome: ID("+collectionID+") Name("+currentData+")"); }
 //		runawayCounter = 0;
-//		setTimeout(function() { updateList(); }, 1000);		
+//		setTimeout(function() { updateList(); }, 1000);
 //	}
 	return;
 }
@@ -786,7 +786,7 @@ function updateList() {
 //	getCollectionChildren(collectionID, tempObject);
 	tempObject.style.display = "inline";
 	tempObject.focus();
-	return;		
+	return;
 }
 
 //	Visitor selected
@@ -971,7 +971,7 @@ function changeEvent(inputObject) {
 		tempObject.style.display = "none";
 		return;
 	}
-	
+
 //	Event type: Non-game team event
 //	Display/Hide appropriate select boxes and text fields.
 	if (activeEventType == 'eventnongame') {
@@ -1307,9 +1307,9 @@ if (isConsoleTrace) { console.log("indicateDate date("+temp+")"); }
 <!--	<h1>Photo Uploader</h1>	-->
 	<font size=+3>ISI Photos Assignment Request</font>&nbsp;&nbsp;<script type="text/javascript">if (isConsoleTrace) {document.write("<font size=-1 color=#3300FF>"); }</script>(2020-11-05)</font>
 <br><input class="btn btn-default" type="button" id="staleButton" style="display: none;" value="Stale logic. Click to refresh." onClick="javascript:document.location.reload(true);">
-<div class="row"> 
+<div class="row">
 <div class="col-xs-12">
-	
+
 
 <form name="isi_transfer" id="isi_transfer" action="none.php" method="post" enctype="multipart/form-data">
 
@@ -1328,9 +1328,9 @@ if (isConsoleTrace) { console.log("indicateDate date("+temp+")"); }
 	$today = date("F j, Y");
 #	print "<input type=\"hidden\" id=\"isi_selected_date\" name=\"isi_selected_date\" value=\"{$today}\" onChange=\"indicateDate();\">";
 #	onchange for hidden works with type=text, style=display:none AND onchange() after changing the value. Update Calendar.popUp.js.
-	print "<input type=\"text\" id=\"isi_selected_date\" name=\"isi_selected_date\" value=\"{$today}\" style=\"display: none;\" onChange=\"indicateDate();\">";	
+	print "<input type=\"text\" id=\"isi_selected_date\" name=\"isi_selected_date\" value=\"{$today}\" style=\"display: none;\" onChange=\"indicateDate();\">";
 	$today = date("Y-m-d");
-	print "<input type=\"text\" id=\"isi_calendar_date\" name=\"isi_calendar_date\" value=\"{$today}\" style=\"display: none;\">";	
+	print "<input type=\"text\" id=\"isi_calendar_date\" name=\"isi_calendar_date\" value=\"{$today}\" style=\"display: none;\">";
 ?>
 
 <?php
@@ -1497,7 +1497,7 @@ if (isConsoleTrace) { console.log("indicateDate date("+temp+")"); }
 		<label>Additional assignment details</label>
 		<textarea class="form-control" rows="2" cols="60" id="isi_details" name="isi_details">&nbsp;</textarea>
 	</div>
-	
+
 <table border=0>
 <tr><td>
 	<div class="form-group" style="width:150px">
@@ -1553,7 +1553,7 @@ if (isConsoleTrace) { console.log("indicateDate date("+temp+")"); }
 </div>
 </div> <!-- end container -->
 
-      <center><font size=-2>&#169;&nbsp;2020-<script>dateyy = new Date();document.write(dateyy.getFullYear());</script> 
+      <center><font size=-2>&#169;&nbsp;2020-<script>dateyy = new Date();document.write(dateyy.getFullYear());</script>
        Andrew Katsampes</font></center>
 
 <script src="includes/js/bootstrap-datepicker.min.js"></script>
