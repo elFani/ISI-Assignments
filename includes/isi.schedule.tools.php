@@ -24,7 +24,7 @@ header('Access-Control-Allow-Origin: https://photographer.isiphotos.com');
 #	insert into portal_downloads values('isiphotos.com','NWSL','I0000hVUHLfqTtEo','NCAAACK20170115105.jpg','Mary Parker','Andrew Katsampes',CURDATE())
 
 #	Status
-#	Status of assignment: a=initial, b=request, c=assigned, d=upload, e= no status, =potential.	
+#	Status of assignment: a=initial, b=request, c=assigned, d=upload, e= no status, =potential.
 $STATUS_INITIAL	= "a";
 $STATUS_REQUEST = "b";
 $STATUS_ASSIGNED = "c";
@@ -304,7 +304,7 @@ if ($request == 'gn') {
 	}
 #	Update the assignment with MEID and image count
 	$tempResult = gettyUpdate($tempAssignID, $tempMEID, $tempImageCount);
-	
+
 	print json_encode($tempArray);
 	exit;
 }
@@ -611,7 +611,7 @@ global	$message, $NOREPLY;
 	if ($inputElapsedHours > 168) {
 		$points = 50;
 	}
-		
+
 #	Update collection/photographer table.
 #	Update database collection/photographer with points and photographer
 	$temp = sprintf("select count(*) from schedule_organizationphotographers where league_organization = '%s' and league_photographerID = '%s'", $inputCollectionID, $inputPhotographerID);
@@ -655,7 +655,7 @@ global	$message, $NOREPLY;
 	} else {
 		$tempArray['statusEditor'] = 'fail' ;
 	}
-	
+
 	$tempArray["status"] = "done";
 	mysqli_close($connection);
 return $tempArray;
@@ -782,9 +782,9 @@ global $GETTY_EMAIL, $GETTY_REPLY, $GETTY_FROM;
 #	Result in $tempArray
 		$tempArray["status"] = "Done";
 		$tempArray["output"] = array();
-#	Send email to Getty requesting MEID.		
+#	Send email to Getty requesting MEID.
 		if ($assignIDList[$inputAssignmentID]['gettyMEID'] == 'y') {
-			$MailSubject = "MEID request: {$inputGalleryName}";	
+			$MailSubject = "MEID request: {$inputGalleryName}";
 #			$MailMessage = "<html><head><meta http-equiv='Content-Security-Policy' content=\"form-action 'http://assignments.isiphotos.com';\"></head><body>DDD";
 #$MailMessage = "<html><head><script>console.log('AK001'); function execID() { 	tempObject = document.getElementById('inputMEID'); alert(tempObject.value);  window.location='http://assignments.isiphotos.com/isi.schedule.confirm.php?input=splat'; }</script></head><body>";
 			$MailMessage = '';
@@ -824,11 +824,11 @@ global $GETTY_EMAIL, $GETTY_REPLY, $GETTY_FROM;
 				$tempStatus = $STATUS_ASSIGNED;
 			} else {
 				if ($nextPhotographerID != '') {
-					$item['photographerIDs'] .= ":{$nextPhotographerID}:{$photographerSpareIDs}";			
+					$item['photographerIDs'] .= ":{$nextPhotographerID}:{$photographerSpareIDs}";
 					$nextPhotographerID = '';
 					$photographerSpareIDs = '';
 				}
-			}			
+			}
 #	Update assignment with status date/time, and updated photographer IDs list
 #			$temp = sprintf("update schedule_assignments set assign_status = '%s', assign_editorID = '%s', assign_photographerIDs = '%s', assign_rsvp = '%s', assign_statusdate = NOW() where assign_ID = '%s'", $tempStatus, $item['editorID'], $item['photographerIDs'], $RSVP_NO, $item['assignID']);
 			$query = "update schedule_assignments set assign_status = '{$tempStatus}', assign_editorID = '{$item['editorID']}', assign_photographerIDs = '{$item['photographerIDs']}', assign_rsvp = '{$RSVP_NO}', assign_statusdate = NOW(), assign_statusaudit = 'requestAccept:p:{$inputPhotographerID}' where assign_ID = '{$item['assignID']}'";
@@ -965,7 +965,7 @@ global $STATUS_REQUEST, $STATUS_INITIAL;
 			$temp = base64_encode("&data=req&data=upload&data=assignmentid&data={$inputAssignmentID}&data=finalUpload&data='n'");
 			$MailMessage .= "<a href='{$TARGET_URL}/isi.schedule.confirm.php?data={$temp}'>Update: First upload complete</a><br>";
 			$temp = base64_encode("&data=req&data=upload&data=assignmentid&data={$inputAssignmentID}&data=finalUpload&data='y'");
-			$MailMessage .= "<a href='{$TARGET_URL}/isi.schedule.confirm.php?data={$temp}'>Update: Final upload complete</a><br><br>";	
+			$MailMessage .= "<a href='{$TARGET_URL}/isi.schedule.confirm.php?data={$temp}'>Update: Final upload complete</a><br><br>";
 			if ($errorList != '') { $MailMessage .= $errorList . "<br><br>"; }
 			executeEmail($MailTo, $MailFrom, $MailReply, $MailSubject, $MailMessage);
 #	For editor request, show next photographer
@@ -980,14 +980,14 @@ global $STATUS_REQUEST, $STATUS_INITIAL;
 		foreach ($assignIDList as $item) {
 			$tempStatus = $STATUS_REQUEST;
 			if ($inputAssignmentID == $item['assignID']) {
-				$item['photographerIDs'] = "{$nextPhotographerID}";	
+				$item['photographerIDs'] = "{$nextPhotographerID}";
 				if ($photographerSpareIDs != '') {
-					$item['photographerIDs'] = "{$item['photographerIDs']}:{$photographerSpareIDs}";	
+					$item['photographerIDs'] = "{$item['photographerIDs']}:{$photographerSpareIDs}";
 				}
 				if ($nextPhotographerID == '') {
 					$tempStatus = $STATUS_INITIAL;
-				}		
-			}			
+				}
+			}
 			$query = "update schedule_assignments set assign_photographerIDs = '{$item['photographerIDs']}', assign_status = '{$tempStatus}', assign_rsvp = '{$RSVP_NO}', assign_statusdate = NOW(), assign_statusaudit = 'requestDecline:p:{$inputPhotographerID}' where assign_ID = '{$item['assignID']}'";
 #print "AK309 Update IDs({$item['photographerIDs']}) ({$query})<br>";
 			$max = executeSQL($connection, $query);
@@ -1028,7 +1028,7 @@ global $STATUS_ASSIGNED, $STATUS_UPLOAD, $STATUS_GETTY, $STATUS_COMPLETE, $NOREP
 #print "AK200 Upload({$query})<br>";
 		$data = executeSQL($connection, $query);
 		$max = mysqli_num_rows($data);
-		if ($max != 1) { 
+		if ($max != 1) {
 			array_push($tempArray["output"],"F203: Assignment not found ({$inputAssignmentID}).<br>");
 		} else {
 			$row = mysqli_fetch_assoc($data);
@@ -1051,7 +1051,7 @@ global $STATUS_ASSIGNED, $STATUS_UPLOAD, $STATUS_GETTY, $STATUS_COMPLETE, $NOREP
 			} else {
 				$tempStatus = $STATUS_COMPLETE;
 			}
-		} 
+		}
 #	Update database assignment, status 'upload', and status time/date.
 		$query = "update schedule_assignments set assign_status = '{$tempStatus}', assign_statusdate = NOW(), assign_statusaudit = 'requestFlagUpload:ep:{$currentEditorID}' where assign_ID = '{$inputAssignmentID}'";
 #$query = "update schedule_assignments set assign_status = 'c', assign_statusdate = NOW() where assign_ID = '{$inputAssignmentID}'";
@@ -1087,7 +1087,7 @@ global $STATUS_ASSIGNED, $STATUS_UPLOAD, $STATUS_GETTY, $STATUS_COMPLETE, $NOREP
 			executeEmail($MailTo, $MailFrom, $MailReply, $MailSubject, $MailMessage);
 			array_push($tempArray["output"],"&nbsp;&nbsp;&nbsp;Email sent to editor.<br>");
 		}
-	
+
 #	Update database collection/photographer with points and photographer
 #	Based on time difference, when uploaded, award points to photographer
 		$points = 0;
@@ -1121,7 +1121,7 @@ global $STATUS_ASSIGNED, $STATUS_UPLOAD, $STATUS_GETTY, $STATUS_COMPLETE, $NOREP
 		if ($data === false) { array_push($tempArray["output"],"F206: Collection update ({$currentOrganization}) failed ().<br>"); }
 #	Insert when 0 rows, and update when not 0 rows selected.
 		$max = mysqli_num_rows($data);
-		if ($max == 1) { 
+		if ($max == 1) {
 			$query = "update schedule_organizationphotographers set league_photographer_points = league_photographer_points + {$points}, league_photographer_assignment = league_photographer_assignment +1 where league_organization = '{$currentOrganization}' and league_photographerID = '{$currentPhotographerID}'";
 		}
 		if ($max == 0) {
@@ -1215,7 +1215,7 @@ global $STATUS_REQUEST, $TARGET_URL;
 	$tempPhotoArray = array();
 	$connection = openDB();
 #	Get list of photographer names and email addresses.
-	$tempWhere = str_replace(':',',',$inputPhotographerIDs);	
+	$tempWhere = str_replace(':',',',$inputPhotographerIDs);
 	$tempWhere = "where photo.photographer_ID in ({$tempWhere})";
 	$query = "select photo.photographer_ID as 'id', photo.photographer_name as 'name', photo.photographer_email as 'email' from schedule_photographers as photo {$tempWhere} order by photo.photographer_lastname, photo.photographer_firstname";
 	$data = executeSQL($connection, $query);
@@ -1231,7 +1231,7 @@ global $STATUS_REQUEST, $TARGET_URL;
 #	Update assignment(s) with photographer list.
 	$tempArray = array();
 	$tempDetails =  mysqli_escape_string($connection, $inputDetails);
-	
+
 #	Proof logic
 	$tempPhotoID = '';
 	$tempLength = 0;
@@ -1301,7 +1301,7 @@ global $STATUS_REQUEST, $TARGET_URL;
 		$temp = base64_encode("&data=req&data=upload&data=assignmentid&data={$itemID}&data=finalUpload&data=n");
 		$MailMessage .= "<a href='{$TARGET_URL}/isi.schedule.confirm.php?data={$temp}'>Update: First upload complete</a><br>";
 		$temp = base64_encode("&data=req&data=upload&data=assignmentid&data={$itemID}&data=finalUpload&data=y");
-		$MailMessage .= "<a href='{$TARGET_URL}/isi.schedule.confirm.php?data={$temp}'>Update: Final upload complete</a><br><br>";	
+		$MailMessage .= "<a href='{$TARGET_URL}/isi.schedule.confirm.php?data={$temp}'>Update: Final upload complete</a><br><br>";
 		$temp = executeEmail($MailTo, $MailFrom, $MailReply, $MailSubject, $MailMessage);
 		if ($temp == true) { $temp = "TRUE"; } else { $temp = "FALSE";}
 		$tempLength += strlen($photoIDList[$tempIndex]);
@@ -1530,7 +1530,7 @@ global	$message;
 #	Number of matching rows
 	$max = mysqli_num_rows($data);
 	$index = 0;
-#	Build array of editor organizations	
+#	Build array of editor organizations
 	if ($max > 0) {
 		while ($row = mysqli_fetch_assoc($data)) {
 			if (password_verify($inputPassword, $row['idb']) == true) {
@@ -1566,7 +1566,7 @@ global	$message;
 #	Number of matching rows
 	$max = mysqli_num_rows($data);
 	$index = 0;
-#	Build array of photographers	
+#	Build array of photographers
 	if ($max > 0) {
 		while ($row = mysqli_fetch_assoc($data)) {
 			if (password_verify($inputPassword, $row['idb']) == true) {
@@ -1623,7 +1623,7 @@ function updatePassword($inputEmail, $inputPassword) {
 #	Close the database
 	mysqli_free_result($data);
 	mysqli_close($connection);
-	
+
 return $tempArray;
 }
 
@@ -1637,10 +1637,10 @@ global $GETTY_REPLY;
 #	Connect with the database
 	$connection = openDB();
 	$tempArray['status'] = 'done';
-	
+
 #	Random digits for password
 	$tempINT = random_int(0,99999999);
-	
+
 #	Update the editor
 	$tempPW = password_hash($tempINT, PASSWORD_DEFAULT);
 	$query = "update schedule_editors set editor_IDB = '{$tempPW}' where editor_email = '{$inputEmail}' ";
@@ -1666,7 +1666,7 @@ global $GETTY_REPLY;
 			$tempArray['status'] = 'editor';
 		}
 	}
-	
+
 #	Send email with new password
 	if ($tempArray['status'] != 'failed') {
 		$tempSubject = "Password reset";
@@ -1678,7 +1678,7 @@ global $GETTY_REPLY;
 #	Close the database
 	mysqli_free_result($data);
 	mysqli_close($connection);
-	
+
 return $tempArray;
 }
 
@@ -1721,7 +1721,7 @@ global	$message;
 	if ($data === false) { $message = "City State failure."; $tempArray['status'] = $message; return $tempArray; }
 #	Number of matching rows, should be 1.
 	$max = mysqli_num_rows($data);
-#	Collect city/state	
+#	Collect city/state
 	if ($max > 0) {
 		while ($row = mysqli_fetch_assoc($data)) {
 #	Build json arrays
@@ -1764,7 +1764,7 @@ function updateUploadPassword($inputName, $inputPassword) {
 	$tempArray = updatePassword($temp, $inputPassword);
 #		}
 #	}
-	
+
 return $tempArray;
 }
 
@@ -1793,7 +1793,7 @@ function resetUploadPassword($inputName) {
 	$tempArray = resetPassword($temp);
 #		}
 #	}
-	
+
 return $tempArray;
 }
 
@@ -1867,7 +1867,7 @@ global $GETTY_EMAIL, $GETTY_FROM, $GETTY_REPLY, $TARGET_URL;
 #	Link passes a gallery name for verification
 	if ($max >0) {
 		$row = mysqli_fetch_assoc($data);
-		$MailSubject = "MEID request: {$row['galleryName']}";	
+		$MailSubject = "MEID request: {$row['galleryName']}";
 		$MailMessage = '';
 		$MailMessage .= "ISI photos would like to request an MEID for:<br>{$row['galleryName']}<br>Thanks.<br>ISI Photos<br>";
 		$tempGallery = urlencode($row['galleryName']);
@@ -1879,7 +1879,7 @@ global $GETTY_EMAIL, $GETTY_FROM, $GETTY_REPLY, $TARGET_URL;
 		} else {
 			$tempArray['status'] = 'Failed email';
 		}
-	}	
+	}
 	mysqli_free_result($data);
 	mysqli_close($connection);
 	return $tempArray;
@@ -1963,10 +1963,10 @@ $connection = openDB();
 			}
 			if (count($tempArray) > 1) {
 				$tempArray[0] = '';
-				$tempLength = 1;		
+				$tempLength = 1;
 				$tempNextPhotographerID = $tempArray[1];
 				$tempArray[1] = '';
-				$tempLength += 1;		
+				$tempLength += 1;
 				$temp = implode(":",$tempArray);
 				$temp = substr($temp,$tempLength);
 				$tempPhotographerSpareIDs .= $temp;
@@ -1980,7 +1980,7 @@ $connection = openDB();
 			$index++;
 		}
 	}
-#	If inputAssignmentID is not in the list, then this is stale request.	
+#	If inputAssignmentID is not in the list, then this is stale request.
 	if ($isStale) {
 		mysqli_close($connection);
 		return [$tempIDList, "Fail", "Stale accept/decline request attempted. (Assignment:{$inputAssignmentID})"];
@@ -2093,7 +2093,7 @@ function openDB() {
 #	IP address of server sending connection request, which is then allowed via Add IP in mediatemple
 #	MediaTemple has bug. Work around. Delete/Add IP addresses
 	$temp = $_SERVER['HTTP_HOST'];
-#	print "Current/access IP. 'SERVER_ADDR' ({$temp})<br>";
+	#echo "Current/access IP. 'SERVER_ADDR' ({$temp})<br>";
 #	Connect to database
 #	$link = mysqli_connect("127.0.0.1", "my_user", "my_password", "my_db");
 #	Valid login
@@ -2108,7 +2108,8 @@ function openDB() {
 #  $password = '<Enter your password here.>';
 #  $connect = mysql_connect($host_name, $user_name, $password, $database);
 #	Assignments DB
-	if ($_SERVER['HTTP_HOST'] == 'assignments.isiphotos.com' || $_SERVER['REQUEST_URI'] == '/isi.upload.php' ) {
+	if ($_SERVER['HTTP_HOST'] == 'assignments.isiphotos.com' || $_SERVER['HTTP_HOST'] == 'lit-wave-11948.herokuapp.com/' || $_SERVER['REQUEST_URI'] == '/isi.upload.php' ) {
+	// if ($_SERVER['HTTP_HOST'] == 'localhost:8000' || $_SERVER['REQUEST_URI'] == '/isi.upload.php' ) {
 		if (!($temp = mysqli_connect("db5000560965.hosting-data.io", "dbu933976", "Pester#32","dbs538560") )) {
 			die("Error " . mysqli_connect_errno() . " : " . mysqli_connect_error() );
 		}
@@ -2116,12 +2117,12 @@ function openDB() {
 	}
 #	if (!($temp = mysqli_connect("db5000560965.hosting-data.io", "dbu933976", "Pester#32","dbs538560") )) {
 #	Uploader DB
-	if ($_SERVER['HTTP_HOST'] == 'photographer.isiphotos.com') {
-		if (!($temp = mysqli_connect("mysql.server285.com:3306", "db139088isi", "38941059ISI#ak","akaction_portal") )) {
-			die("Error " . mysqli_connect_errno() . " : " . mysqli_connect_error() );
-		}
-		return $temp;
-	}
+	// if ($_SERVER['HTTP_HOST'] == 'photographer.isiphotos.com') {
+	// 	if (!($temp = mysqli_connect("mysql.server285.com:3306", "db139088isi", "38941059ISI#ak","akaction_portal") )) {
+	// 		die("Error " . mysqli_connect_errno() . " : " . mysqli_connect_error() );
+	// 	}
+	// 	return $temp;
+	// }
 #	Connect to database
 #	if (!(@mysqli_select_db("db139088_isiportal", $temp) )) {
 #		showerror();

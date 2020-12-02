@@ -43,7 +43,7 @@ include ("includes/isi.schedule.tools.php");
 <meta http-equiv="Cache-control" content="no-cache">
 <link rel="icon" type="image/png" href="https://assignments.isiphotos.com/icons/ISI_logo.png" />
 
-<link rel="stylesheet" href="includes/css/bootstrap.min.css">
+<!-- <link rel="stylesheet" href="includes/css/bootstrap.min.css"> -->
 <!-- <link rel="stylesheet" href="includes/css/bootstrap-datepicker3.min.css">	-->
 <link rel="stylesheet" href="includes/css/turretcss.min.css">
 <link rel="stylesheet" href="includes/css/isi-style.css">
@@ -445,9 +445,7 @@ var leagues = new Array();
 			array_push($collectionArray, "{$row['name']}:{$row['email']}");
 		}
 	}
-
-
-
+##TEAMS DB CHANGE 20-12-01
 
 ?>
 //var leagues = ['MLS', 'US Soccer', 'International', 'WPS'];
@@ -848,6 +846,7 @@ var tempMax, tempObject, tempText, tempValue, currentIndex, currentData;
 //<input type="hidden" id="isi_selected_keyword" name="isi_selected_keyword" value="">
 //<input type="hidden" id="isi_selected_gallery" name="isi_selected_gallery" value="">
 //<input type="hidden" id="isi_selected_gallery_title" name="isi_selected_gallery_title" value="">
+
 function changeEvent(inputObject) {
 //	Make the event labels and buttons visible
 	eventVisible("inline");
@@ -1307,6 +1306,7 @@ if (isConsoleTrace) { console.log("indicateDate date("+temp+")"); }
 <!--	<br><br><font color=#CC0000>Note: Only Stanford, MLS, NWSL, NWSL Stock Images, and International are working correctly.  San Jose - maybe. (Icons available for these.)</font><br><br>	-->
 <div class="container">
 	<h1>ISI Photos Assignment Request <small>(2020-11-05)</small></h1>
+	<p>Notes: try heroku domain for db connect</p>
 	<input class="btn btn-default" type="button" id="staleButton" style="display: none;" value="Stale logic. Click to refresh." onClick="javascript:document.location.reload(true);">
 		<form name="isi_transfer" id="isi_transfer" action="none.php" method="post" enctype="multipart/form-data">
 			<input type="hidden" id="isi_selected_league" name="isi_selected_league" value="none">
@@ -1374,6 +1374,7 @@ if (isConsoleTrace) { console.log("indicateDate date("+temp+")"); }
 				<label class="select" id="eventlabel03" for="isi_eventtype">
 					<select class="select" name="isi_eventtype" id="isi_eventtype" onChange='javascript:changeEvent(this);'>
 						<option value="none">select event type</option>
+						<option value="eventgame">new type</option>
 					</select>
 				</label>
 			</p>
