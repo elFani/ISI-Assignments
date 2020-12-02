@@ -45,7 +45,8 @@ include ("includes/isi.schedule.tools.php");
 
 <link rel="stylesheet" href="includes/css/bootstrap.min.css">
 <!-- <link rel="stylesheet" href="includes/css/bootstrap-datepicker3.min.css">	-->
-<link rel="stylesheet" href="includes/css/uploader.css">
+<link rel="stylesheet" href="includes/css/turretcss.min.css">
+<link rel="stylesheet" href="includes/css/isi-style.css">
 
 <!--	ISI Schedule related functions	-->
 <script type="text/javascript" src="includes/isi.schedule.js"></script>
