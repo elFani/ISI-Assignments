@@ -3,15 +3,16 @@
 $isHTTP = false;
 $typeHTTPS = gettype($_SERVER['HTTPS']);
 $typeSCRIPT = gettype($_SERVER['SCRIPT_URI']);
-if ($typeHTTPS == 'NULL') { $isHTTP = true; }
-if ($typeSCRIPT == 'string') {
- 	$isHTTP = true;
-	if (strpos($temp,'https://') == '') { $isHTTP = true; }
-	if (strpos($temp,'http://') == 0) { $isHTTP = true; }
-}
+// if ($typeHTTPS == 'NULL') { $isHTTP = true; }
+// if ($typeSCRIPT == 'string') {
+//  	$isHTTP = true;
+// 	if (strpos($temp,'https://') == '') { $isHTTP = true; }
+// 	if (strpos($temp,'http://') == 0) { $isHTTP = true; }
+// }
 #	Please follow link to ISI Photo Uploader
 if ($isHTTP) {
-	print "<br><br><center><h3>Hello. Please follow link to ISI Photos Assignment Request.</h3></center><br>";
+	print "<br><br><center><h2>Hello. Please follow link to ISI Photos Assignment Request.</h2></center><br>";
+	print "<br><br><center><h3>Please follow link to ISI Photos Assignment Request.</h3></center><br>";
 	print "<center><font size=+1><a href='https://assignments.isiphotos.com'>https://assignments.isiphotos.com</a></font></center><br>";
 	print "<center><font size=+1>Link as text: <input type='text' value='https://assignments.isiphotos.com' size=50></font></center><br>";
 	exit;
