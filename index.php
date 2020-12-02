@@ -1306,101 +1306,112 @@ if (isConsoleTrace) { console.log("indicateDate date("+temp+")"); }
 <!--	<br><br><font color=#CC0000>Note: AK Diagnosing. Extra messages issued.</font><br><br>	-->
 <!--	<br><br><font color=#CC0000>Note: Only Stanford, MLS, NWSL, NWSL Stock Images, and International are working correctly.  San Jose - maybe. (Icons available for these.)</font><br><br>	-->
 <div class="container">
-<!--	<h1>Photo Uploader</h1>	-->
-	<font size=+3>ISI Photos Assignment Request</font>&nbsp;&nbsp;<script type="text/javascript">if (isConsoleTrace) {document.write("<font size=-1 color=#3300FF>"); }</script>(2020-11-05)</font>
-<br><input class="btn btn-default" type="button" id="staleButton" style="display: none;" value="Stale logic. Click to refresh." onClick="javascript:document.location.reload(true);">
-<div class="row">
-<div class="col-xs-12">
+	<h1>ISI Photos Assignment Request <small>(2020-11-05)</small></h1>
+	<input class="btn btn-default" type="button" id="staleButton" style="display: none;" value="Stale logic. Click to refresh." onClick="javascript:document.location.reload(true);">
+		<form name="isi_transfer" id="isi_transfer" action="none.php" method="post" enctype="multipart/form-data">
+			<input type="hidden" id="isi_selected_league" name="isi_selected_league" value="none">
+			<input type="hidden" id="isi_selected_league_email" name="isi_selected_league_email" value="none">
+			<input type="hidden" id="isi_selected_hometeam" name="isi_selected_hometeam" value="">
+			<input type="hidden" id="isi_selected_visitorteam" name="isi_selected_visitorteam" value="">
+			<input type="hidden" id="isi_selected_keyword" name="isi_selected_keyword" value="">
+			<input type="hidden" id="isi_selected_gallery" name="isi_selected_gallery" value="">
+			<input type="hidden" id="isi_selected_gallery_title" name="isi_selected_gallery_title" value="">
+			<?php
+			#	Defaults to today's date (year-month-day, month day, year)
+			#	yyyy-MM-dd,MMM d, yyyy
+			#	$today = date("Y-m-d") . "," . date("F j, Y");
+			#	May 8, 2017
+				$today = date("F j, Y");
+			#	print "<input type=\"hidden\" id=\"isi_selected_date\" name=\"isi_selected_date\" value=\"{$today}\" onChange=\"indicateDate();\">";
+			#	onchange for hidden works with type=text, style=display:none AND onchange() after changing the value. Update Calendar.popUp.js.
+				print "<input type=\"text\" id=\"isi_selected_date\" name=\"isi_selected_date\" value=\"{$today}\" style=\"display: none;\" onChange=\"indicateDate();\">";
+				$today = date("Y-m-d");
+				print "<input type=\"text\" id=\"isi_calendar_date\" name=\"isi_calendar_date\" value=\"{$today}\" style=\"display: none;\">";
+			?>
 
+			<?php
+			#	Initialization.
+			#	Select box for organizations
+				// print "<div class=\"form-group\" style=\"width:450px\">
+				// 		<label id='eventlabel01'>Organization list from database</label>
+				// 		<select class='form-control' name='isi_league' id='isi_league' onChange='javascript:changeLeague(this);'>";
+				// print "<option value='none'>Select client/teams</option>";
+				// foreach ($collectionArray as $item) {
+				// 	$temp = explode(":", $item);
+				// 	if ($temp[0] == 'Other') { continue; }
+				// 	print "<option value=\"{$item}\">{$temp[0]}</option>";
+				// }
+				// print "<option value=\"Other\">-- Other --</option>";
+				// print "</select></div>";
 
-<form name="isi_transfer" id="isi_transfer" action="none.php" method="post" enctype="multipart/form-data">
+			?>
+			<p class="field">
+				<label>Clients & Teams</label>
+				<label class="select" for="organization">
+					<select class="select" name="organization" id="organization">
+						<option value='none'>select organization</option>
+						<?php
+							foreach ($collectionArray as $item) {
+							$temp = explode(":", $item);
+							if ($temp[0] == 'Other') { continue; }
+							print "<option value=\"{$item}\">{$temp[0]}</option>";
+						}
+						?>
+						<option value="Other">-- Other --</option>
+					</select>
+				</label>
+			</p>
+			<p class="field">
+				<label id="contactlabel" for="requestor_data">Requestor</label>
+				<input type="text" id="requestor_data" name="requestor_data" value="">
+			</p>
+			<p class="field">
+				<label id="contactphonelabel" for="requestoremail_data">Requestor email</label>
+				<input type="email" id="requestoremail_data" name="requestoremail_data" value="">
+			</p>
+			<p class="field">
+				<label>Event Type</label>
+				<label class="select" id="eventlabel03" for="isi_eventtype">
+					<select class="select" name="isi_eventtype" id="isi_eventtype" onChange='javascript:changeEvent(this);'>
+						<option value="none">select event type</option>
+					</select>
+				</label>
+			</p>
 
-<input type="hidden" id="isi_selected_league" name="isi_selected_league" value="none">
-<input type="hidden" id="isi_selected_league_email" name="isi_selected_league_email" value="none">
-<input type="hidden" id="isi_selected_hometeam" name="isi_selected_hometeam" value="">
-<input type="hidden" id="isi_selected_visitorteam" name="isi_selected_visitorteam" value="">
-<input type="hidden" id="isi_selected_keyword" name="isi_selected_keyword" value="">
-<input type="hidden" id="isi_selected_gallery" name="isi_selected_gallery" value="">
-<input type="hidden" id="isi_selected_gallery_title" name="isi_selected_gallery_title" value="">
-<?php
-#	Defaults to today's date (year-month-day, month day, year)
-#	yyyy-MM-dd,MMM d, yyyy
-#	$today = date("Y-m-d") . "," . date("F j, Y");
-#	May 8, 2017
-	$today = date("F j, Y");
-#	print "<input type=\"hidden\" id=\"isi_selected_date\" name=\"isi_selected_date\" value=\"{$today}\" onChange=\"indicateDate();\">";
-#	onchange for hidden works with type=text, style=display:none AND onchange() after changing the value. Update Calendar.popUp.js.
-	print "<input type=\"text\" id=\"isi_selected_date\" name=\"isi_selected_date\" value=\"{$today}\" style=\"display: none;\" onChange=\"indicateDate();\">";
-	$today = date("Y-m-d");
-	print "<input type=\"text\" id=\"isi_calendar_date\" name=\"isi_calendar_date\" value=\"{$today}\" style=\"display: none;\">";
-?>
+			<div class="secondaryEventInfo">
+			<label id="eventtypelabel"></label>
+			<p id="eventtypeaction"></p>
 
-<?php
-#	Initialization.
-#	Select box for organizations
-	print "<div class=\"form-group\" style=\"width:450px\">
-			<label id='eventlabel01'>Organization list from database</label>
-			<select class='form-control' name='isi_league' id='isi_league' onChange='javascript:changeLeague(this);'>";
-	print "<option value='none'>Select client/teams</option>";
-	foreach ($collectionArray as $item) {
-		$temp = explode(":", $item);
-		if ($temp[0] == 'Other') { continue; }
-		print "<option value=\"{$item}\">{$temp[0]}</option>";
-	}
-	print "<option value=\"Other\">-- Other --</option>";
-	print "</select></div>";
+			<div class="form-group" style="width:450px">
+				<label id="eventhomelabel"></label>
+				<select id="isi_league_hometeam" name="isi_league_hometeam" onChange="javascript:changeHome(this);">
+					<option value="" selected>Select Team</option>
+				</select>
+			</div>
+			<div class="form-group" style="width:450px">
+				<input class="form-control" type="text" id="isi_selected_description" name="isi_selected_description" onClick="this.select();" >
+			</div>
+			<div class="form-group" style="width:450px">
+				<label id="homeotherlabel"></label>
+				<input class="form-control" type="text" id="isi_selected_hometeam_new" name="isi_selected_hometeam_new" value="" onClick="this.select();" >
+			</div>
 
-?>
-
-<div class="form-group" style="width:450px">
-	<label id="contactlabel">Requestor</label>
-	<input class="form-control" type="text" id="requestor_data" name="requestor_data" value="">
-</div>
-<div class="form-group" style="width:450px">
-	<label id="contactphonelabel">Requestor email</label>
-	<input class="form-control" type="text" id="requestoremail_data" name="requestoremail_data" value="">
-</div>
-
-<div class="form-group" style="width:450px">
-<label id="eventlabel03">Event type</label>
-<select class='form-control' name='isi_eventtype' id='isi_eventtype' onChange='javascript:changeEvent(this);'>
-	<option value='none'>Select event type</option>
-</select>
-</div>
-
-<div class="secondaryEventInfo"><label id="eventtypelabel"></label>
-<p id="eventtypeaction"></p>
-
-<div class="form-group" style="width:450px">
-	<label id="eventhomelabel"></label>
-	<select class="form-control" id="isi_league_hometeam" name="isi_league_hometeam" onChange="javascript:changeHome(this);">
-		<option value="" selected>Select Team</option>
-	</select>
-</div>
-<div class="form-group" style="width:450px">
-	<input class="form-control" type="text" id="isi_selected_description" name="isi_selected_description" onClick="this.select();" >
-</div>
-<div class="form-group" style="width:450px">
-	<label id="homeotherlabel"></label>
-	<input class="form-control" type="text" id="isi_selected_hometeam_new" name="isi_selected_hometeam_new" value="" onClick="this.select();" >
-</div>
-
-<div class="form-group" style="width:450px">
-<label id="eventawaylabel"></label>
-<select class="form-control" id="isi_league_visitorteam" name="isi_league_visitorteam" onChange="javascript:changeVisitor(this,leagues['Nongame']['collections']);">
-	<option value="" selected>Selection needed</option>
-</select>
-</div>
-<div class="form-group" style="width:450px">
-<label id="visitorotherlabel"></label>
-<input class="form-control" type="text" id="isi_selected_visitorteam_new" name="isi_selected_visitorteam_new" value="" onClick="this.select();" >
-</div>
+			<div class="form-group" style="width:450px">
+			<label id="eventawaylabel"></label>
+			<select class="form-control" id="isi_league_visitorteam" name="isi_league_visitorteam" onChange="javascript:changeVisitor(this,leagues['Nongame']['collections']);">
+				<option value="" selected>Selection needed</option>
+			</select>
+			</div>
+			<div class="form-group" style="width:450px">
+			<label id="visitorotherlabel"></label>
+			<input class="form-control" type="text" id="isi_selected_visitorteam_new" name="isi_selected_visitorteam_new" value="" onClick="this.select();" >
+			</div>
 </div> <!-- end secondaryEventInfo -->
 
 
 <section id="datesection" style="display:none;">
 <div class="form-group">
-<table border=0 width=450>
+<table>
 <tr><td>&nbsp;</td><td colspan=3><label>Event time window (local time)</label></td></tr>
 <tr><td>
 <label id="eventlabel02">Date:</label>
@@ -1551,12 +1562,13 @@ if (isConsoleTrace) { console.log("indicateDate date("+temp+")"); }
 
 <table border="0" id="statusTable" width="70%">
 </table>
-</div>
-</div>
-</div> <!-- end container -->
+</div><!-- end container -->
+<footer class="text-align-center background-light-200 padding-m position-fixed position-bottom width-100">
+		<small>&#169;&nbsp;2020-<script>dateyy = new Date();document.write(dateyy.getFullYear());</script>
+       Andrew Katsampes</small>
+</footer>
 
-      <center><font size=-2>&#169;&nbsp;2020-<script>dateyy = new Date();document.write(dateyy.getFullYear());</script>
-       Andrew Katsampes</font></center>
+
 
 <script src="includes/js/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript">
