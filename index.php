@@ -197,7 +197,7 @@ var test, tempObject;
 //	tempObject = document.getElementById('isi_timeend');
 //	test = tempObject.value;
 //	tempObject = document.getElementById('isi_timestart');
-//	if (test < tempObject.value) {
+//	if (test <span tempObject.value) {
 //		tempObject.focus();
 //		alert ('Event end time must be greater than start time.');
 //		return false;
@@ -420,6 +420,7 @@ if (isConsoleTrace) { console.log("Keyword/Gallery name ("+tempKeyword+")  Event
 //	['teams'] populates the isi_league_ home and visitor select boxes
 //	['events'] populates the isi_eventtype, event type select box
 var leagues = new Array();
+
 <?php
 #	Build javascript arrays of collections for an organization in ISI Schedule
 #	Table: schedule names
@@ -427,7 +428,7 @@ var leagues = new Array();
 #	Open the database
 	$connection = openDB();
 	$query = "select organization.organization_name as 'name', organization.organization_email as 'email', organization.organization_teams as 'teams', organization.organization_teamsother as 'teamsother', organization.organization_home as 'home', organization.organization_events as 'events' FROM schedule_organizations as organization order by organization.organization_name";
-#print "// AK001 SQL ({$query})<br>";
+
 	$data = executeSQL($connection, $query);
 	$max = mysqli_num_rows($data);
 #	Build javascript arrays for each collection
@@ -445,9 +446,9 @@ var leagues = new Array();
 			array_push($collectionArray, "{$row['name']}:{$row['email']}");
 		}
 	}
-##TEAMS DB CHANGE 20-12-01
 
 ?>
+
 //var leagues = ['MLS', 'US Soccer', 'International', 'WPS'];
 //leagues["USA Men's Soccer"] = new Array();
 //leagues["USA Men's Soccer"]['teams'] = ['USMNT','USMNT U-23','USMNT U-20','USMNT U-18','USMNT U-17'];
@@ -1306,7 +1307,11 @@ if (isConsoleTrace) { console.log("indicateDate date("+temp+")"); }
 <!--	<br><br><font color=#CC0000>Note: Only Stanford, MLS, NWSL, NWSL Stock Images, and International are working correctly.  San Jose - maybe. (Icons available for these.)</font><br><br>	-->
 <div class="container">
 	<h1>ISI Photos Assignment Request <small>(2020-11-05)</small></h1>
-	<p>Notes: try heroku domain for db connect</p>
+	<p>
+		<?php
+			echo $_SERVER['HTTP_HOST'];
+		?>
+	</p>
 	<input class="btn btn-default" type="button" id="staleButton" style="display: none;" value="Stale logic. Click to refresh." onClick="javascript:document.location.reload(true);">
 		<form name="isi_transfer" id="isi_transfer" action="none.php" method="post" enctype="multipart/form-data">
 			<input type="hidden" id="isi_selected_league" name="isi_selected_league" value="none">

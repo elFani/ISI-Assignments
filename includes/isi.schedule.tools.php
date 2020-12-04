@@ -2108,21 +2108,22 @@ function openDB() {
 #  $password = '<Enter your password here.>';
 #  $connect = mysql_connect($host_name, $user_name, $password, $database);
 #	Assignments DB
-	if ($_SERVER['HTTP_HOST'] == 'assignments.isiphotos.com' || $_SERVER['HTTP_HOST'] == 'lit-wave-11948.herokuapp.com/' || $_SERVER['REQUEST_URI'] == '/isi.upload.php' ) {
-	// if ($_SERVER['HTTP_HOST'] == 'localhost:8000' || $_SERVER['REQUEST_URI'] == '/isi.upload.php' ) {
-		if (!($temp = mysqli_connect("db5000560965.hosting-data.io", "dbu933976", "Pester#32","dbs538560") )) {
+	if ($_SERVER['HTTP_HOST'] == 'assignments.isiphotos.com' || $_SERVER['HTTP_HOST'] == 'localhost' || $_SERVER['HTTP_HOST'] == 'lit-wave-11948.herokuapp.com' || $_SERVER['REQUEST_URI'] == '/isi.upload.php' ) {
+		// $temp = mysqli_connect("db5000560965.hosting-data.io", "dbu933976", "Pester#32","dbs538560");
+		if (!($conn = mysqli_connect("db5000560965.hosting-data.io", "dbu933976", "Pester#32","dbs538560") )) {
+			die("Error " . mysqli_connect_errno() . " : " . mysqli_connect_error() );
+		}
+		echo "Connected successfully";
+		return $conn;
+	}
+#	if (!($temp = mysqli_connect("db5000560965.hosting-data.io", "dbu933976", "Pester#32","dbs538560") )) {
+#	Uploader DB
+	if ($_SERVER['HTTP_HOST'] == 'photographer.isiphotos.com') {
+		if (!($temp = mysqli_connect("mysql.server285.com:3306", "db139088isi", "38941059ISI#ak","akaction_portal") )) {
 			die("Error " . mysqli_connect_errno() . " : " . mysqli_connect_error() );
 		}
 		return $temp;
 	}
-#	if (!($temp = mysqli_connect("db5000560965.hosting-data.io", "dbu933976", "Pester#32","dbs538560") )) {
-#	Uploader DB
-	// if ($_SERVER['HTTP_HOST'] == 'photographer.isiphotos.com') {
-	// 	if (!($temp = mysqli_connect("mysql.server285.com:3306", "db139088isi", "38941059ISI#ak","akaction_portal") )) {
-	// 		die("Error " . mysqli_connect_errno() . " : " . mysqli_connect_error() );
-	// 	}
-	// 	return $temp;
-	// }
 #	Connect to database
 #	if (!(@mysqli_select_db("db139088_isiportal", $temp) )) {
 #		showerror();
@@ -2134,11 +2135,11 @@ function openDB() {
 #	Execute SQL
 #
 function executeSQL($inputConnection, $inputQuery) {
-#	$tempSQL = mysqli_prepare($inputConnection, $inputQuery);
-#print "($inputQuery)<br>";
+// #	$tempSQL = mysqli_prepare($inputConnection, $inputQuery);
+// #print "($inputQuery)<br>";
 	$result = mysqli_query($inputConnection, $inputQuery);
 	if (!$result) {
-#		print "SQL failed ({$inputQuery})<br>";
+// #		print "SQL failed ({$inputQuery})<br>";
 		return false;
 	}
 	return $result;
