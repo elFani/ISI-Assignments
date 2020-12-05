@@ -849,6 +849,7 @@ var tempMax, tempObject, tempText, tempValue, currentIndex, currentData;
 //<input type="hidden" id="isi_selected_gallery_title" name="isi_selected_gallery_title" value="">
 
 function changeEvent(inputObject) {
+	console.log("inside change event");
 //	Make the event labels and buttons visible
 	eventVisible("inline");
 	tempObject = '';
@@ -1352,8 +1353,8 @@ if (isConsoleTrace) { console.log("indicateDate date("+temp+")"); }
 			?>
 			<p class="field">
 				<label>Clients & Teams</label>
-				<label class="select" for="organization">
-					<select class="select" name="organization" id="organization">
+				<label class="select" for="isi_league" id="eventlabel01">
+					<select class="select" name="isi_league" id="isi_league" onChange="javascript:changeLeague(this);">
 						<option value='none'>select organization</option>
 						<?php
 							foreach ($collectionArray as $item) {
@@ -1379,7 +1380,6 @@ if (isConsoleTrace) { console.log("indicateDate date("+temp+")"); }
 				<label class="select" id="eventlabel03" for="isi_eventtype">
 					<select class="select" name="isi_eventtype" id="isi_eventtype" onChange='javascript:changeEvent(this);'>
 						<option value="none">select event type</option>
-						<!-- <option value="eventgame">new type</option> -->
 					</select>
 				</label>
 			</p>

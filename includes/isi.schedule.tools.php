@@ -2112,7 +2112,6 @@ function openDB() {
 		if (!($temp = mysqli_connect("127.0.0.1:3306", "root", "oldnumber4236778047", "dbs538560") )) {
 			die("Error " . mysqli_connect_errno() . " : " . mysqli_connect_error() );
 		}
-		// echo $temp;
 		return $temp;
 	}
 #	if (!($temp = mysqli_connect("db5000560965.hosting-data.io", "dbu933976", "Pester#32","dbs538560") )) {
