@@ -2108,10 +2108,11 @@ function openDB() {
 #  $password = '<Enter your password here.>';
 #  $connect = mysql_connect($host_name, $user_name, $password, $database);
 #	Assignments DB
-	if ($_SERVER['HTTP_HOST'] == 'assignments.isiphotos.com' || $_SERVER['HTTP_HOST'] == 'lit-wave-11948.herokuapp.com' ) {
-		if (!($temp = mysqli_connect("db5000560965.hosting-data.io", "dbu933976", "Pester#32","dbs538560") )) {
+	if ($_SERVER['HTTP_HOST'] == 'localhost:8000' ) {
+		if (!($temp = mysqli_connect("127.0.0.1:3306", "root", "oldnumber4236778047", "dbs538560") )) {
 			die("Error " . mysqli_connect_errno() . " : " . mysqli_connect_error() );
 		}
+		// echo $temp;
 		return $temp;
 	}
 #	if (!($temp = mysqli_connect("db5000560965.hosting-data.io", "dbu933976", "Pester#32","dbs538560") )) {

@@ -1379,7 +1379,7 @@ if (isConsoleTrace) { console.log("indicateDate date("+temp+")"); }
 				<label class="select" id="eventlabel03" for="isi_eventtype">
 					<select class="select" name="isi_eventtype" id="isi_eventtype" onChange='javascript:changeEvent(this);'>
 						<option value="none">select event type</option>
-						<option value="eventgame">new type</option>
+						<!-- <option value="eventgame">new type</option> -->
 					</select>
 				</label>
 			</p>
